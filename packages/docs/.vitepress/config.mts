@@ -4,7 +4,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Ethany-UI",
   description: "element-plus 学习副本",
-  base: "ethany-ui",
+  base: "/ethany-ui/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
