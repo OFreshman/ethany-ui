@@ -1,5 +1,5 @@
 {
-  "name": "demo",
+  "name": "@ethany-ui/demo",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,9 +8,8 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue": "^5.0.4"
   }
 }
