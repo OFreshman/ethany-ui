@@ -1,0 +1,57 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button Component > should render correctly with default props 1`] = `"<button style="background-color: blue; color: red;" content="Click Me">i am a button</button>"`;
+
+exports[`Button Component > should render correctly with different sizes 1`] = `"<button style="background-color: blue; color: red;" size="large" content="Button with size large">i am a button</button>"`;
+
+exports[`Button Component > should render correctly with different sizes 2`] = `"<button style="background-color: blue; color: red;" size="default" content="Button with size default">i am a button</button>"`;
+
+exports[`Button Component > should render correctly with different sizes 3`] = `"<button style="background-color: blue; color: red;" size="small" content="Button with size small">i am a button</button>"`;
+
+exports[`Button Component > should render correctly with different types 1`] = `"<button style="background-color: blue; color: red;" type="submit" content="Button with type primary">i am a button</button>"`;
+
+exports[`Button Component > should render correctly with different types 2`] = `"<button style="background-color: blue; color: red;" type="submit" content="Button with type success">i am a button</button>"`;
+
+exports[`Button Component > should render correctly with different types 3`] = `"<button style="background-color: blue; color: red;" type="submit" content="Button with type warning">i am a button</button>"`;
+
+exports[`Button Component > should render correctly with different types 4`] = `"<button style="background-color: blue; color: red;" type="submit" content="Button with type danger">i am a button</button>"`;
+
+exports[`Button Component > should render correctly with different types 5`] = `"<button style="background-color: blue; color: red;" type="submit" content="Button with type info">i am a button</button>"`;
+
+exports[`Button Componentvue > should render in disabled state 1`] = `
+"<button style="background-color: blue; color: red;" disabled="">i am a button</button>
+<button style="background-color: blue; color: red;" type="submit" disabled="">i am a button</button>
+<button style="background-color: blue; color: red;" type="submit" disabled="">i am a button</button>"
+`;
+
+exports[`Button Componentvue > should render in loading state 1`] = `
+"<button style="background-color: blue; color: red;" loading="true">i am a button</button>
+<button style="background-color: blue; color: red;" type="submit" loading="true">i am a button</button>
+<button style="background-color: blue; color: red;" type="submit" loading="true">i am a button</button>"
+`;
+
+exports[`Button Componentvue > should render with different shapes 1`] = `
+"<button style="background-color: blue; color: red;" plain="true">i am a button</button>
+<button style="background-color: blue; color: red;" round="true">i am a button</button>
+<button style="background-color: blue; color: red;" circle="true">i am a button</button>"
+`;
+
+exports[`Button Componentvue > should render with different sizes 1`] = `
+"<button style="background-color: blue; color: red;" size="large">i am a button</button>
+<button style="background-color: blue; color: red;">i am a button</button>
+<button style="background-color: blue; color: red;" size="small">i am a button</button>"
+`;
+
+exports[`Button Componentvue > should render with different types 1`] = `
+"<button style="background-color: blue; color: red;" type="submit">i am a button</button>
+<button style="background-color: blue; color: red;" type="submit">i am a button</button>
+<button style="background-color: blue; color: red;" type="submit">i am a button</button>
+<button style="background-color: blue; color: red;" type="submit">i am a button</button>
+<button style="background-color: blue; color: red;" type="submit">i am a button</button>"
+`;
+
+exports[`Button Componentvue > should render with icons 1`] = `
+"<button style="background-color: blue; color: red;" icon="search">i am a button</button>
+<button style="background-color: blue; color: red;" icon="edit">i am a button</button>
+<button style="background-color: blue; color: red;" icon="check">i am a button</button>"
+`;

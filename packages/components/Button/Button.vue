@@ -9,6 +9,9 @@
  */
 defineOptions({
   name: "EyButton",
+  // props: {
+  //   // disabled: Boolean,
+  // },
 });
 </script>
 <template>
