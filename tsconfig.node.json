@@ -1,6 +1,11 @@
 {
   "extends": "@tsconfig/node18/tsconfig.json",
-  "include": ["packages/**/**.config.ts"],
+  "include": [
+    "packages/**/*.config.ts",
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "packages/**/*.vue"
+  ],
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",

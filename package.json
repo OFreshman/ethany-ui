@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "pnpm --filter @ethany-ui/demo dev",
     "docs:dev": "pnpm --filter @ethany-ui/docs dev",
