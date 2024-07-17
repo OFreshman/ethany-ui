@@ -1,10 +1,10 @@
 import type { Component } from "vue";
 
-export type ButtonType = "success" | "primary" | "warning" | "danger" | "info";
+export type ButtonType = "primary" | "success" | "warning" | "danger" | "info";
 export type NativeType = "button" | "reset" | "submit";
 export type ButtonSize = "large" | "default" | "small";
 export interface ButtonProps {
-  tag?: Component;
+  tag?: string | Component;
   type?: ButtonType;
   size?: ButtonSize;
   nativeType?: NativeType;

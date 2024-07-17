@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import type { ButtonProps } from "./types";
 /**
  * 组件目录结构
  * Button.vue  组件
@@ -13,7 +15,35 @@ defineOptions({
   //   // disabled: Boolean,
   // },
 });
+
+const props = withDefaults(defineProps<ButtonProps>(), {
+  tag: "button",
+  nativeType: "button",
+  type: "primary",
+});
+
+const slots = defineSlots();
+
+const _ref = ref<HTMLButtonElement>();
+console.log("props: ", props);
 </script>
 <template>
-  <button style="background-color: blue; color: red">i am a button</button>
+  <component
+    :is="props.tag"
+    ref="_ref"
+    class="ey-button"
+    :type="tag === 'button' ? nativeType : void 0"
+    :disabled="disabled || loading ? true : void 0"
+    :class="{
+      [`ey-button--${type}`]: type,
+      [`ey-button--${size}`]: size,
+      'is-plain': plain,
+      'is-circle': circle,
+      'is-round': round,
+      'is-disabled': disabled || loading ? true : void 0,
+      'is-loading': loading,
+    }"
+  >
+    <slot></slot>
+  </component>
 </template>

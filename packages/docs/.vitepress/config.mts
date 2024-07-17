@@ -4,7 +4,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Ethany-UI",
   description: "element-plus 学习副本",
-  base: "/ethany-ui/",
+  base: "/ethany-ui/", // 项目是ethany-ui，设置了 /ethany-ui/后， 那么样式就会从该目录下取
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
