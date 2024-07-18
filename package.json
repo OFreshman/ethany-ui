@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "pnpm --filter @ethany-ui/demo dev",
     "docs:dev": "pnpm --filter @ethany-ui/docs dev",
+    "story": "pnpm --filter @ethany-ui/demo storybook",
     "docs:build": "pnpm --filter @ethany-ui/docs build",
     "test": "pnpm --filter @ethany-ui/components test"
   },
