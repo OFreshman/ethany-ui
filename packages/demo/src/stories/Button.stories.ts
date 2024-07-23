@@ -50,7 +50,7 @@ const meta: Meta<typeof EyButton> = {
 };
 
 const container = (val: string) => `
-  <div :style="margin: 5px">
+  <div style="margin: 5px">
     ${val}
   </div>
 `;
