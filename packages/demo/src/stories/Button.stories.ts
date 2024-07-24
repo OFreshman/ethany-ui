@@ -1,7 +1,8 @@
 import type { Meta, StoryObj, ArgTypes } from "@storybook/vue3";
-import { fn } from "@storybook/test";
+import { fn, within, userEvent, expect, clearAllMocks } from "@storybook/test";
 
 import { EyButton } from "ethany-ui";
+import { set } from "lodash-es";
 
 type Story = StoryObj<typeof EyButton> & { argtypes: ArgTypes };
 
@@ -71,9 +72,158 @@ export const Default: Story & { args: { content: string } } = {
       return { args };
     },
     template: container(
-      `<ey-button v-bind="args">{{args.content}}</ey-button>`
+      `<ey-button data-testid="story-test-btn" v-bind="args">{{args.content}}</ey-button>`
     ),
   }),
+  play: async({canvasElement, args, step}) => {
+    const canvas = within(canvasElement)
+    // 点击按钮步骤，点击的时候，传入的按钮点击事件就应该被调用
+    await step('click btn', async () => {
+      await userEvent.click(canvas.getByRole('button'))
+      expect(args.onClick).toHaveBeenCalled()
+    })
+
+    const btn = canvas.getByTestId("story-test-btn");
+    await step(
+      "When useThrottle is set to true, the onClick should be called once",
+      async () => {
+        set(args, "useThrottle", true);
+        // tripleClick 三次连续快速的点击
+        await userEvent.tripleClick(btn);
+
+        // toHaveBeenCalledOnce对节流的时间窗口更为敏感，并且可能在节流时间间隔内无法正确判断调用次数。
+        // 节流时间间隔过低，比如 600 ms 就会测试失败
+        // expect(args.onClick).toHaveBeenCalledOnce();
+
+        // 被触发，且仅一次被触发，后面限制着前面
+        expect(args.onClick).toHaveBeenCalled();
+        expect(args.onClick).toHaveBeenCalledTimes(1); // 确保只有一次调用
+        clearAllMocks();
+    });
+
+    await step(
+      "When useThrottle is set to false, the onClick should be called three times",
+      async () => {
+        set(args, "useThrottle", false);
+        await userEvent.tripleClick(btn);
+        expect(args.onClick).toHaveBeenCalledTimes(3);
+        clearAllMocks();
+    });
+
+    await step(
+      "When disabled is set to true, the onClick should not be called",
+      async () => {
+        set(args, "disabled", true);
+        await userEvent.click(btn);
+        expect(args.onClick).toHaveBeenCalledTimes(0);
+        set(args, "disabled", false);
+        clearAllMocks();
+    });
+
+    await step(
+      "When loading is set to true, the onClick should not be called",
+      async () => {
+      set(args, "loading", true);
+      await userEvent.click(btn);
+      expect(args.onClick).toHaveBeenCalledTimes(0);
+      set(args, "loading", false);
+      clearAllMocks();
+    });
+  }
 };
+
+
+// export const Circle: Story = {
+//   args: {
+//     icon: "search",
+//   },
+//   render: (args) => ({
+//   }),
+//   play: async ({ canvasElement, args, step }) => {
+//   },
+// };
+
+// Circle.parameters = {};
+
+export const Autofocus: Story & { args: { content: string } } = {
+  argtypes: {
+    content: {
+      control: { type: "text" },
+    }
+  },
+  args: {
+    content: "Button",
+    autoFocus: true,
+  },
+  render: (args) => ({ 
+    components: { EyButton },
+    setup() {
+      return { args };
+    },
+    template: container(
+      `
+      <p>请点击浏览器的刷新页面来获取按钮聚焦</p>
+      <ey-button data-testid="story-test-btn" v-bind="args">{{args.content}}</ey-button>
+      `
+    ),
+  }),
+  play: async ({ args }) => {
+    await userEvent.keyboard("{enter}");
+
+    expect(args.onClick).toHaveBeenCalledOnce();
+    clearAllMocks();
+  }
+}
+
+// export const Group: Story & { args: { content1: string; content2: string } } = {
+//   argTypes: {
+//     groupType: {
+//       control: { type: "select" },
+//       options: ["primary", "success", "warning", "danger", "info", ""],
+//     },
+//     groupSize: {
+//       control: { type: "select" },
+//       options: ["large", "default", "small", ""],
+//     },
+//     groupDisabled: {
+//       control: "boolean",
+//     },
+//     content1: {
+//       control: { type: "text" },
+//       defaultValue: "Button1",
+//     },
+//     content2: {
+//       control: { type: "text" },
+//       defaultValue: "Button2",
+//     },
+//   },
+//   args: {
+//     round: true,
+//     content1: "Button1",
+//     content2: "Button2",
+//   },
+//   render: (args) => ({
+//     components: { EyButton, ErButtonGroup },
+//     setup() {
+//       return { args };
+//     },
+//     template: container(`
+//        <er-button-group :type="args.groupType" :size="args.groupSize" :disabled="args.groupDisabled">
+//          <er-button v-bind="args">{{args.content1}}</er-button>
+//          <er-button v-bind="args">{{args.content2}}</er-button>
+//        </er-button-group>
+//     `),
+//   }),
+//   play: async ({ canvasElement, args, step }) => {
+//     const canvas = within(canvasElement);
+//     await step("click btn1", async () => {
+//       await userEvent.click(canvas.getByText("Button1"));
+//     });
+//     await step("click btn2", async () => {
+//       await userEvent.click(canvas.getByText("Button2"));
+//     });
+//     expect(args.onClick).toHaveBeenCalled();
+//   },
+// };
 
 export default meta;

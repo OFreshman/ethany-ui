@@ -6,23 +6,23 @@ import type { ButtonSize } from "./types";
 
 describe("Button.vue", () => {
   const onClick = vi.fn();
-  // test("basic button", async () => {
-  //   const wrapper = mount(() => (
-  //     <Button type="primary" {...{ onClick }}>
-  //       button content
-  //     </Button>
-  //   ));
+  test("basic button", async () => {
+    const wrapper = mount(() => (
+      <Button type="primary" {...{ onClick }}>
+        button content
+      </Button>
+    ));
 
-  //   // class
-  //   expect(wrapper.classes()).toContain("ey-button--primary");
+    // class
+    expect(wrapper.classes()).toContain("ey-button--primary");
 
-  //   // slot
-  //   expect(wrapper.get("button").text()).toBe("button content");
+    // slot
+    // expect(wrapper.get("button").text()).toBe("button content");
 
-  //   // events
-  //   await wrapper.get("button").trigger("click");
-  //   expect(onClick).toHaveBeenCalledOnce();
-  // });
+    // events
+    await wrapper.get("button").trigger("click");
+    expect(onClick).toHaveBeenCalledOnce();
+  });
 
   test("disabled button", async () => {
     const wrapper = mount(() => (
@@ -156,24 +156,26 @@ describe("Button.vue", () => {
   });
 
   // Test the click event with and without throttle
-  // it.each([
-  //   ["withoutThrottle", false],
-  //   ["withThrottle", true],
-  // ])("emits click event %s", async (_, useThrottle) => {
-  //   const clickSpy = vi.fn();
-  //   const wrapper = mount(() => (
-  //     <Button
-  //       onClick={clickSpy}
-  //       {...{
-  //         useThrottle,
-  //         throttleDuration: 400,
-  //       }}
-  //     />
-  //   ));
+  it.each([
+    ["withoutThrottle", false],
+    ["withThrottle", true],
+  ])("emits click event %s", async (_, useThrottle) => {
+    const clickSpy = vi.fn();
+    const wrapper = mount(() => (
+      <Button
+        onClick={clickSpy}
+        {...{
+          useThrottle,
+          throttleDuration: 400,
+        }}
+      />
+    ));
 
-  //   await wrapper.get("button").trigger("click");
-  //   expect(clickSpy).toHaveBeenCalled();
-  // });
+    await wrapper.get("button").trigger("click");
+    await wrapper.get("button").trigger("click");
+    await wrapper.get("button").trigger("click");
+    expect(clickSpy).toBeCalledTimes(useThrottle ? 1 : 3);
+  });
 
   // Props: tag
   it("should renders the custom tag when tag prop is set", () => {
